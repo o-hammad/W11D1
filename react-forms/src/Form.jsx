@@ -1,14 +1,44 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 function UserRegistration() {
     const [state, setState] = useState({
         name: "Please enter name",
-        email: "Please enter email",
+        email: "email@domain.com",
         phoneNum: "Please enter phone number",
         phoneType: "Please select phone type",
         staff: "Please select",
         bio: "Please enter bio",
         emailNotifications: false
+    })
+    const [validationErrors, setValidationErrors] = useState({});
+
+    useEffect(() => {
+        const errors = {};
+        if(!state.name.length) errors['name'] = "Please enter your name";
+        if(!state.email.includes('@')) errors['email']="Please enter a valid email";
+        setValidationErrors(errors);
+    }, [state])
+    
+    useEffect(() => {
+        const errorDiv = document.getElementById("errors");
+        // console.log(validationErrors);
+        // const errors = Object.values(validationErrors);
+        // errors.forEach((error) => {
+        //     const errorMessage = document.createElement("p");
+        //     errorMessage.innerText = error;
+        //     errorDiv.appendChild(errorMessage);
+        // })
+        
+        // errorDiv.appendChild
+        // for(const key in Object.keys(validationErrors)) {
+        //     // const newError = document.createElement("div")
+        //     // newError.innerHTML = validationErrors[key];
+        //     // errorDiv.appendChild(newError);
+        // }    
+        // errorDiv.appendChild(validationErrors);
+
+        const errorMessage = JSON.stringify(validationErrors);
+        errorDiv.innerHTML = errorMessage;
     })
 
     function resetState() {
@@ -52,6 +82,7 @@ function UserRegistration() {
         console.log(userRegInformation);
 
         resetState();
+        setValidationErrors({});
       };
 
     return (
@@ -130,7 +161,9 @@ function UserRegistration() {
                 </div>
                 <button>Submit</button>
             </form>
+            <div id="errors">
 
+            </div>
         </div>
     );
 }
