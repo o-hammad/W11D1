@@ -24,7 +24,7 @@ function UserRegistration() {
     }
 
     const handleChange = (incomingKey) => {
-        return (event)=> {
+        return (event) => {
         const value = event.target.type === "checkbox" ? event.target.checked : event.target.value;
         const newObj = Object.assign({}, state, {[incomingKey]: value })
         setState(newObj);
@@ -77,7 +77,7 @@ function UserRegistration() {
                     />
                 </div>
                 <div>
-                    <label htmlFor="phoneNum">Phone Num:</label>
+                    <label htmlFor="phoneNum">Phone Number:</label>
                     <input 
                         name="phoneNum" 
                         type="text"
